@@ -1,0 +1,40 @@
+{% include 'layout.html' %}
+{% load static %}
+{% block content %}
+	<div class="app">
+		<div class="todo-container">
+			<header class="todo-header">
+				<h2>Todo</h2>
+			</header>
+			<form action="" method="POST" class="todo-form">
+				{% csrf_token %}
+				<div class="input-container">
+					<img src="{% static 'list.svg' %}"></img>
+					<input type="text" class="input-control" placeholder="Add todo" name="todo-name">
+					<button type="submit" class="input-button" name='addTodo'>
+						<img src="{% static 'check.svg' %}">
+					</button>
+				</div>
+			</form>
+			<form action="" method="POST" class="todo-list">
+				{% csrf_token %}
+				{% for todo in todos %}
+					<div class='todo'>
+						<div class="todo-status">
+							<input type="checkbox" class="todo-completed">
+							<div class="todo-info">
+								<p for="check" class="todo-title">{{todo.title}}</p>
+								<span class="todo-date">{{todo.created}}</span>
+							</div>
+						</div>
+						<button type="submit" class="todo-edit-button" name="deleteTodo" value="{{todo.title}}">
+							<img src="{% static 'trash.svg' %}"></img>
+						</button>
+					</div>
+				{% endfor %}
+			</form>
+		</div>
+	</div>
+
+  <script src="{% static 'index.js' %}"></script>
+{% endblock %}
